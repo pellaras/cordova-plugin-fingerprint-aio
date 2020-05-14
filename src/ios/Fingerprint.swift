@@ -108,6 +108,10 @@ enum PluginError:Int {
             localizedReason: reason,
             reply: { [unowned self] (success, error) -> Void in
                 if( success ) {
+                    if let secret = data?["secret"] as? String {
+                        self.saveSecret(secret, command: command)
+                        return
+                    }
                     pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Success");
                 }else {
                     if (error != nil) {
@@ -179,10 +183,6 @@ enum PluginError:Int {
     @objc(authenticate:)
     func authenticate(_ command: CDVInvokedUrlCommand){
         let data  = command.arguments[0] as AnyObject?;
-        if let secret = data?["secret"] as? String {
-            self.saveSecret(secret, command: command)
-            return
-        }
         if let loadSecret = data?["loadSecret"] as? Bool, loadSecret {
             self.loadSecret(command)
             return
