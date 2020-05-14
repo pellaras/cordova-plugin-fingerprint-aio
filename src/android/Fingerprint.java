@@ -45,6 +45,9 @@ public class Fingerprint extends CordovaPlugin {
         } else if ("isAvailable".equals(action)) {
             executeIsAvailable();
             return true;
+        } else if ("settings".equals(action)) {
+            executeSettings();
+            return true;
         }
         return false;
     }
@@ -80,6 +83,12 @@ public class Fingerprint extends CordovaPlugin {
         PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
         pluginResult.setKeepCallback(true);
         this.mCallbackContext.sendPluginResult(pluginResult);
+    }
+    
+    private void executeSettings() {
+        Intent intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+        this.cordova.getActivity().startActivity(intent);
+        sendSuccess("Success");
     }
 
     @Override

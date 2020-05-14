@@ -189,7 +189,22 @@ enum PluginError:Int {
         }
         justAuthenticate(command)
     }
-
+    
+    @objc(settings:)
+    func settings(_ command: CDVInvokedUrlCommand){
+        var pluginResult: CDVPluginResult;
+        
+        let settingsUrl:URL = URL(string: UIApplicationOpenSettingsURLString)!;
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl);
+        }
+        
+        pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Success");
+        
+        self.commandDelegate.send(pluginResult, callbackId:command.callbackId);
+    }
+    
     override func pluginInitialize() {
         super.pluginInitialize()
     }

@@ -44,4 +44,14 @@ Fingerprint.prototype.isAvailable = function (successCallback, errorCallback) {
   );
 };
 
+Fingerprint.prototype.settings = function (successCallback, errorCallback) {
+  cordova.exec(
+    successCallback,
+    errorCallback,
+    "Fingerprint",
+    "settings",
+    [{}]
+  );
+};
+
 module.exports = new Fingerprint();
