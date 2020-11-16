@@ -63,6 +63,9 @@ enum PluginError:Int {
                 case Int(kLAErrorBiometryNotEnrolled):
                     code = PluginError.BIOMETRIC_NOT_ENROLLED.rawValue;
                     break;
+                case Int(kLAErrorBiometryLockout):
+                    code = PluginError.BIOMETRIC_LOCKED_OUT.rawValue;
+                    break;
 
                 default:
                     code = PluginError.BIOMETRIC_UNKNOWN_ERROR.rawValue;
