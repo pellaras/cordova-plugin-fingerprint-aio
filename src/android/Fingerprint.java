@@ -78,7 +78,6 @@ public class Fingerprint extends CordovaPlugin {
             }
             Intent intent = new Intent(cordova.getActivity().getApplicationContext(), BiometricActivity.class);
             intent.putExtras(mPromptInfoBuilder.build().getBundle());
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.cordova.startActivityForResult(this, intent, REQUEST_CODE_BIOMETRIC);
         });
         PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
@@ -88,6 +87,7 @@ public class Fingerprint extends CordovaPlugin {
     
     private void executeSettings() {
         Intent intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.cordova.getActivity().startActivity(intent);
         sendSuccess("Success");
     }
